@@ -3,8 +3,8 @@
  */
 #include <iostream>
 #include <string>
-#include "node.hpp"
-#include "tree.hpp"
+#include "Node.hpp"
+#include "Tree.hpp"
 
 using namespace std;
 
