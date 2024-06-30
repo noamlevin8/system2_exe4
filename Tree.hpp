@@ -11,7 +11,7 @@
 #include <queue>
 #include <stack>
 #include <algorithm>
-#include <SFML/Graphics.hpp>
+//#include <SFML/Graphics.hpp>
 #include <cmath>
 #include <sstream>
 #include <iomanip>
@@ -33,7 +33,7 @@ class Tree {
             ~Tree() {} // Deconstructor
 
             // Functions
-            inline void addRoot(Node<T>& root) { // Adding a root
+            inline void add_root(Node<T>& root) { // Adding a root
                 // If the root is empty, set the root to the given root
                 if (this->root == nullptr){
                     this->root = &root;

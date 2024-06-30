@@ -90,7 +90,7 @@ class PostOrderIterator {
             }
 
     public:
-            postOrderIterator(Node<T>* root) // Constructor
+            PostOrderIterator(Node<T>* root) // Constructor
             {
                 if(root != nullptr)
                     this->NodeStack = traverse(root);

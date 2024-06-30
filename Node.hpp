@@ -19,7 +19,7 @@ template <typename T>
             vector<Node<T>*> children;
 
             // Functions
-            Node(T& data) : data(data), parent(nullptr) {} // Constructor
+            Node(const T& data) : data(data), parent(nullptr) {} // Constructor
 
             inline T& getData() const { return this->data; }; // Getting the data
 
@@ -27,7 +27,7 @@ template <typename T>
 
             inline void setData(T& data) { this->data = data; }; // Setting the data
 
-            inline void add_child(Node<T>& child) { this->childrens.pop_back(&child); child.parent = this; }; // Adding a child
+            inline void add_child(Node<T>& child) { this->children.push_back(&child); child.parent = this; }; // Adding a child
 
             inline void clear_children() { this->children.clear(); }; // Clearing the children vector
  };
