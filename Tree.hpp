@@ -34,7 +34,7 @@ class Tree {
 
             // Functions
             inline void add_root(Node<T>& root) { // Adding a root
-                // If the root is empty, set the root to the given root
+                // If the root is empty, set the root to be the given root
                 if (this->root == nullptr){
                     this->root = &root;
                 }
@@ -44,16 +44,14 @@ class Tree {
                 }
             };
 
-            inline void add_sub_node(Node<T>& parent, Node<T>& child) { // Adding a sub node
+            inline void add_sub_node(Node<T>& root_node, Node<T>& sub_node) { // Adding a sub node
                 // If the parent has less than n children, add the child to the parent
-                if (parent.children.size() < n){
-                    parent.add_child(child);
+                if (root_node.children.size() < n){
+                    root_node.add_child(sub_node);
                 }
                 else{
-                    cout << "Parent has already n children" << endl;
+                    cout << "Root node has already n children" << endl;
 //                    throw std::runtime_error("Parent has already n children");
                 }
             };
-
-
 };

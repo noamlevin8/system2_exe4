@@ -196,3 +196,124 @@ class InOrderIterator {
                 return this->NodeStack.top();
             }
 };
+
+template <typename T>
+class BFSIterator {
+    private:
+            // Fields
+            queue<Node<T>* > NodeQueue;
+
+    public:
+            BFSIterator(Node<T> *root) { // Constructor
+                if (root != nullptr)
+                    this->NodeQueue.push(root);
+            }
+
+            // Operator "==" overload
+            inline bool operator==(const BFSIterator& other) {
+                if (this->NodeQueue.empty() && other.NodeQueue.empty())
+                    return true;
+
+                if (this->NodeQueue.empty() != other.NodeQueue.empty())
+                    return false;
+
+                return this->NodeQueue.front() == other.NodeQueue.front();
+            }
+
+            // Operator "!=" overload
+            inline bool operator!=(const BFSIterator& other) {
+                return !(*this == other);
+            }
+
+            // Operator "++" overload
+            inline BFSIterator& operator++() {
+                if (this->NodeQueue.empty())
+                    return *this;
+
+                Node<T>* currentNode = this->NodeQueue.front();
+                this->NodeQueue.pop();
+
+                for(auto& child : currentNode->getChildren()) {
+                    this->NodeQueue.push(child);
+                }
+                return *this;
+            }
+
+            // Operator "*" overload
+            inline T& operator*() {
+                return this->NodeQueue.front()->getData();
+            }
+
+            // Operator "*" overload (const)
+            inline const T& operator*() const {
+                return this->NodeQueue.front()->getData();
+            }
+
+            // Operator "->" overload
+            inline Node<T>* operator->() {
+                return this->NodeQueue.front();
+            }
+};
+
+template <typename T>
+class DFSIterator {
+    private:
+            stack<Node<T>* > NodeStack;
+
+    public:
+            DFSIterator(Node<T> *root) {
+                if (root != nullptr)
+                    this->NodeStack.push(root);
+            }
+
+            // Operator "==" overload
+            inline bool operator==(const DFSIterator& other) {
+                if (this->NodeStack.empty() && other.NodeStack.empty())
+                    return true;
+
+                if (this->NodeStack.empty() != other.NodeStack.empty())
+                    return false;
+
+                return this->NodeStack.top() == other.NodeStack.top();
+            }
+
+            // Operator "!=" overload
+            inline bool operator!=(const DFSIterator& other) {
+                return !(*this == other);
+            }
+
+            // Operator "++" overload
+            inline DFSIterator& operator++()
+            {
+                Node<T>* currentNode = this->NodeStack.top();
+                this->NodeStack.pop();
+
+                for (int i = currentNode->getChildren().size() - 1; i >= 0; i--) {
+                    this->NodeStack.push(currentNode->getChildren()[(size_t)i]);
+                }
+
+                return *this;
+            }
+
+            // Operator "*" overload
+            inline T& operator*() { return this->NodeStack.top()->getData(); }
+
+            // Operator "->" overload
+            inline Node<T>* operator->() { return this->NodeStack.top(); }
+};
+
+template <typename T>
+class HeapIterator {
+    private:
+            vector<Node<T> *> NodeHeap;
+    public:
+            heapIterator(Node<T>* root) { // Constructor
+                if (root != nullptr) {
+                    for (auto node = BFSIterator<T>(root); node != BFSIterator<T>(nullptr); ++node) {
+                        this->NodeHeap.push_back(node.operator->());
+                    }
+                    make_heap(this->NodeHeap.begin(), this->NodeHeap.end(), [](Node <T>* a, Node <T>* b) {
+                        return a->getData() > b->getData(); });
+                }
+            }
+};
