@@ -305,15 +305,54 @@ class DFSIterator {
 template <typename T>
 class HeapIterator {
     private:
-            vector<Node<T> *> NodeHeap;
+            vector<Node<T>* > NodeHeap;
     public:
             heapIterator(Node<T>* root) { // Constructor
                 if (root != nullptr) {
                     for (auto node = BFSIterator<T>(root); node != BFSIterator<T>(nullptr); ++node) {
                         this->NodeHeap.push_back(node.operator->());
                     }
+
                     make_heap(this->NodeHeap.begin(), this->NodeHeap.end(), [](Node <T>* a, Node <T>* b) {
                         return a->getData() > b->getData(); });
                 }
+            }
+
+            // Operator "==" overload
+            inline bool operator==(const HeapIterator& other)
+            {
+                if (this->NodeHeap.empty() && other.NodeHeap.empty()) {
+                    return true;
+                }
+
+                if (this->NodeHeap.empty() != other.NodeHeap.empty()) {
+                    return false;
+                }
+
+                return this->NodeHeap.front() == other.NodeHeap.front();
+            }
+
+            // Operator "!=" overload
+            inline bool operator!=(const HeapIterator& other) {
+                return !(*this == other);
+            }
+
+            // Operator "++" overload
+            HeapIterator& operator++()
+            {
+                if(!this->NodeHeap.empty()){
+                    this->NodeHeap.erase(this->NodeHeap.begin());
+                }
+                return *this;
+            }
+
+            // Operator "*" overload
+            inline T& operator*() {
+                return this->NodeHeap.front()->getData();
+            }
+
+            // Operator "->" overload
+            inline Node<T>* operator->() {
+                return this->NodeHeap.front();
             }
 };
