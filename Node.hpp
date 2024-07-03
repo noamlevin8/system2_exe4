@@ -14,20 +14,20 @@ template <typename T>
  class Node {
     public:
             // Fields
-            T data;
+            T value;
             Node* parent;
             vector<Node<T>*> children;
 
             // Functions
-            Node(const T& data) : data(data), parent(nullptr) {} // Constructor
+            Node(const T& value) : value(value), parent(nullptr) {} // Constructor
 
-            inline T& getData() const { return this->data; }; // Getting the data
+            inline T& get_value() { return this->value; } // Getting the data
 
-            inline vector<Node<T>*>& getChildren() const { return this->children; }; // Getting the children vector
+            inline vector<Node<T>*>& getChildren() { return this->children; } // Getting the children vector
 
-            inline void setData(T& data) { this->data = data; }; // Setting the data
+            inline void setData(T& value) { this->value = value; } // Setting the data
 
-            inline void add_child(Node<T>& child) { this->children.push_back(&child); child.parent = this; }; // Adding a child
+            inline void add_child(Node<T>& child) { this->children.push_back(&child); child.parent = this; } // Adding a child
 
-            inline void clear_children() { this->children.clear(); }; // Clearing the children vector
+            inline void clear_children() { this->children.clear(); } // Clearing the children vector
  };

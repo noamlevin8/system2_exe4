@@ -7,14 +7,14 @@ CXXFLAGS = -std=c++14 -Werror -Wsign-conversion -g
 VALGRIND_FLAGS = -v --leak-check=full --show-leak-kinds=all --error-exitcode=99
 
 DEMOSOURCES = Node.hpp Tree.hpp Demo.cpp
-TESTSOURCES = Node.hpp Tree.hpp TestCounter.cpp Test.cpp Complex.cpp
+TESTSOURCES = Node.hpp Tree.hpp TestCounter.cpp Test.cpp
 #COMPLEXSOURCES = Node.hpp Tree.hpp Complex.cpp ComplexDemo.cpp
 #COMPLEXOBJECTS = $(subst .cpp,.o,$(filter %.cpp,$(COMPLEXSOURCES)))
 DEMOOBJECTS = $(subst .cpp,.o,$(filter %.cpp,$(DEMOSOURCES)))
 TESTOBJECTS = $(subst .cpp,.o,$(filter %.cpp,$(TESTSOURCES)))
 
 
-all: demo test complex
+all: demo test
 
 #run: test
 #	./test
@@ -25,8 +25,8 @@ demo: $(DEMOOBJECTS)
 test: $(TESTOBJECTS)
 	$(CXX) $(CXXFLAGS) $^ $(LDFLAGS) -o test
 
-complex: $(COMPLEXOBJECTS)
-	$(CXX) $(CXXFLAGS) $^ $(LDFLAGS) -o complex
+#complex: $(COMPLEXOBJECTS)
+#	$(CXX) $(CXXFLAGS) $^ $(LDFLAGS) -o complex
 
 tidy:
 	clang-tidy $(filter %.cpp,$(DEMOSOURCES)) -checks=bugprone-*,clang-analyzer-*,cppcoreguidelines-*,performance-*,portability-*,readability-*,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-owning-memory --warnings-as-errors=-* --
