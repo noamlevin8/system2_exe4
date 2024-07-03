@@ -3,12 +3,12 @@
 
 CXX = clang++
 CXXFLAGS = -std=c++14 -Werror -Wsign-conversion -g
-#LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
+LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 VALGRIND_FLAGS = -v --leak-check=full --show-leak-kinds=all --error-exitcode=99
 
 DEMOSOURCES = Node.hpp Tree.hpp Demo.cpp
 TESTSOURCES = Node.hpp Tree.hpp TestCounter.cpp Test.cpp
-#COMPLEXSOURCES = Node.hpp Tree.hpp Complex.cpp ComplexDemo.cpp
+#COMPLEXSOURCES = Node.hpp Tree.hpp Complex.cpp
 #COMPLEXOBJECTS = $(subst .cpp,.o,$(filter %.cpp,$(COMPLEXSOURCES)))
 DEMOOBJECTS = $(subst .cpp,.o,$(filter %.cpp,$(DEMOSOURCES)))
 TESTOBJECTS = $(subst .cpp,.o,$(filter %.cpp,$(TESTSOURCES)))
