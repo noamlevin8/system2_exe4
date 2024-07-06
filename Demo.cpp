@@ -35,6 +35,7 @@ int main()
      *  1.4  1.5  1.6
      */
 
+    cout << "Binary PreOrder: ";
     for (auto node = tree.begin_pre_order(); node != tree.end_pre_order(); ++node)
     {
         cout << node->get_value() << " ";
@@ -42,6 +43,7 @@ int main()
 
     cout << "\n" << endl;
 
+    cout << "Binary PostOrder: ";
     for (auto node = tree.begin_post_order(); node != tree.end_post_order(); ++node)
     {
         cout << node->get_value() << " ";
@@ -49,6 +51,7 @@ int main()
 
     cout << "\n" << endl;
 
+    cout << "Binary InOrder: ";
     for (auto node = tree.begin_in_order(); node != tree.end_in_order(); ++node)
     {
         cout << node->get_value() << " ";
@@ -56,6 +59,7 @@ int main()
 
     cout << "\n" << endl;
 
+    cout << "Binary BFS: ";
     for (auto node = tree.begin_bfs_scan(); node != tree.end_bfs_scan(); ++node)
     {
         cout << node->get_value() << " ";
@@ -63,14 +67,15 @@ int main()
 
     cout << "\n" << endl;
 
-//    for (auto node : tree)
-//    {
-//        cout << node.get_value() << " " << end;
-//    } // same as BFS: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
+    cout << "Binary regular loop: ";
+    for (auto node : tree)
+    {
+        cout << node << " ";
+    } // same as BFS: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
 
-//    cout << tree; // Should print the graph using GUI.
-    tree.showTree();
-//
+    cout << "\n" << endl;
+
+    tree.showTree(); // Should print the graph using GUI.
 
     root_node.clear_children();
     n1.clear_children();
@@ -93,7 +98,48 @@ int main()
      *  1.5      1.6
      */
 
+    cout << "3-ary PreOrder: ";
+    for (auto node = three_ary_tree.begin_pre_order(); node != three_ary_tree.end_pre_order(); ++node)
+    {
+        cout << node->get_value() << " ";
+    } // prints: 1.1 1.2 1.5 1.3 1.6 1.4
+
+    cout << "\n" << endl;
+
+    cout << "3-ary PostOrder: ";
+    for (auto node = three_ary_tree.begin_post_order(); node != three_ary_tree.end_post_order(); ++node)
+    {
+        cout << node->get_value() << " ";
+    } // prints: 1.1 1.2 1.5 1.3 1.6 1.4
+
+    cout << "\n" << endl;
+
+    cout << "3-ary InOrder: ";
     for (auto node = three_ary_tree.begin_in_order(); node != three_ary_tree.end_in_order(); ++node)
+    {
+        cout << node->get_value() << " ";
+    } // prints: 1.1 1.2 1.5 1.3 1.6 1.4
+
+    cout << "\n" << endl;
+
+    cout << "3-ary BFS: ";
+    for (auto node = three_ary_tree.begin_bfs_scan(); node != three_ary_tree.end_bfs_scan(); ++node)
+    {
+        cout << node->get_value() << " ";
+    } // prints: 1.1 1.2 1.3 1.4 1.5 1.6
+
+    cout << "\n" << endl;
+
+    cout << "3-ary regular loop: ";
+    for (auto node : three_ary_tree)
+    {
+        cout << node << " ";
+    } // prints: 1.1 1.2 1.5 1.3 1.6 1.4
+
+    cout << "\n" << endl;
+
+    cout << "3-ary Heap: ";
+    for (auto node = three_ary_tree.my_heap_begin(); node != three_ary_tree.my_heap_end(); ++node)
     {
         cout << node->get_value() << " ";
     } // prints: 1.1 1.2 1.5 1.3 1.6 1.4
