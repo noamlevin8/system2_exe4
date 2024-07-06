@@ -26,6 +26,7 @@ class PreOrderIterator {
                     this->NodeStack.push(root);
             }
 
+            // Operators for traversing
             // Operator "==" overload
             inline bool operator==(const PreOrderIterator& other) {
                 if(this->NodeStack.empty() && other.NodeStack.empty()) // Both empty
@@ -54,7 +55,7 @@ class PreOrderIterator {
                 return *this;
             }
 
-            // Operator "*" overload
+            // Operator "*" overload (before statement)
             inline T& operator*() {
                 return this->NodeStack.top()->get_value();
             }
@@ -94,6 +95,7 @@ class PostOrderIterator {
                     this->NodeStack = traverse(root);
             }
 
+            // Operators for traversing
             // Operator "==" overload
             inline bool operator==(const PostOrderIterator& other) {
                 if(this->NodeStack.empty() && other.NodeStack.empty()) // Both empty
@@ -119,9 +121,9 @@ class PostOrderIterator {
                 return *this;
             }
 
-            // Operator "*" overload
+            // Operator "*" overload (before statement)
             inline T& operator*() {
-                return this->NodeStack.top()->get_value();
+                return this->NodeStack.front()->get_value();
             }
 
             // Operator "->" overload
@@ -151,6 +153,7 @@ class InOrderIterator {
                 }
             }
 
+            // Operators for traversing
             // Operator "==" overload
             inline bool operator==(const InOrderIterator& other) {
                 if(this->NodeStack.empty() && other.NodeStack.empty()) // Both empty
@@ -172,11 +175,11 @@ class InOrderIterator {
                 Node<T>* currentNode = this->NodeStack.top();
                 this->NodeStack.pop();
 
-                if (currentNode->getChildren().size() == 2) { // If the current node has a right child we push it to the stack
+                if (currentNode->getChildren().size() == 2) { // If the current node has a right child we push it
                     this->NodeStack.push(currentNode->getChildren()[1]);
                     Node<T> *temp = currentNode->getChildren()[1];
 
-                    while (temp->getChildren().size() > 0) { // Then, we push the left branch of the right child into the stack
+                    while (temp->getChildren().size() > 0) { // We push the left side of the right child
                         this->NodeStack.push(temp->getChildren()[0]);
                         temp = temp->getChildren()[0];
                     }
@@ -185,7 +188,7 @@ class InOrderIterator {
                 return *this;
             }
 
-            // Operator "*" overload
+            // Operator "*" overload (before statement)
             inline T& operator*() {
                 return this->NodeStack.top()->get_value();
             }
@@ -208,6 +211,7 @@ class BFSIterator {
                     this->NodeQueue.push(root);
             }
 
+            // Operators for traversing
             // Operator "==" overload
             inline bool operator==(const BFSIterator& other) const {
                 if (this->NodeQueue.empty() && other.NodeQueue.empty())
@@ -238,13 +242,8 @@ class BFSIterator {
                 return *this;
             }
 
-            // Operator "*" overload
+            // Operator "*" overload (before statement)
             inline T& operator*() {
-                return this->NodeQueue.front()->get_value();
-            }
-
-            // Operator "*" overload (const)
-            inline const T& operator*() const {
                 return this->NodeQueue.front()->get_value();
             }
 
@@ -265,6 +264,7 @@ class DFSIterator {
                     this->NodeStack.push(root);
             }
 
+            // Operators for traversing
             // Operator "==" overload
             inline bool operator==(const DFSIterator& other) const {
                 if (this->NodeStack.empty() && other.NodeStack.empty())
@@ -293,7 +293,7 @@ class DFSIterator {
                 return *this;
             }
 
-            // Operator "*" overload
+            // Operator "*" overload (before statement)
             inline T& operator*() {
                 return this->NodeStack.top()->get_value();
             }
@@ -316,10 +316,11 @@ class HeapIterator {
                     }
 
                     make_heap(this->NodeHeap.begin(), this->NodeHeap.end(), [](Node <T>* a, Node <T>* b) {
-                        return a->get_value() > b->get_value(); });
+                        return a->get_value() > b->get_value(); }); // Using lambda to compare the nodes in order to make a min heap
                 }
             }
 
+            // Operators for traversing
             // Operator "==" overload
             inline bool operator==(const HeapIterator& other) const {
                 if (this->NodeHeap.empty() && other.NodeHeap.empty()) {
@@ -347,7 +348,7 @@ class HeapIterator {
                 return *this;
             }
 
-            // Operator "*" overload
+            // Operator "*" overload (before statement)
             inline T& operator*() {
                 return this->NodeHeap.front()->get_value();
             }

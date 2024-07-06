@@ -53,6 +53,8 @@ class Tree {
                 return truncatedString;
             }
 
+            // Helper function to calculate the max len of a subTree.
+            // This function is used to prevent overlapping of nodes in the GUI.
             float subTreeLen(Node<T>*  node, float xOffset) {
                 if (!node || node->getChildren().empty())
                     return 0.0f;
@@ -63,7 +65,7 @@ class Tree {
                     totalLen += subTreeLen(child, xOffset) + xOffset;
                 }
 
-                totalLen -= (2 * xOffset)  ;
+                totalLen -= (2 * xOffset); // Removing unnecessary offset from last child
 
                 return max(totalLen, xOffset);
             }
@@ -72,18 +74,22 @@ class Tree {
                 if (!node)
                     return;
 
+                // Drawing the node
                 sf::CircleShape circle(30);
                 circle.setFillColor(sf::Color::Blue);
                 circle.setPosition(x, y);
 
+                // Getting the font
                 sf::Font font;
                 if (!font.loadFromFile("ArielFont.ttf")) {
                     cerr << "Failed to load font\n";
                     return;
                 }
 
+                // Formating value
                 std::string nodeValueStr = formatingValue(node->get_value());
 
+                // Creating text
                 sf::Text text;
                 text.setFont(font);
                 text.setString(nodeValueStr);
@@ -93,23 +99,28 @@ class Tree {
                 sf::FloatRect textRect = text.getLocalBounds();
                 text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
 
+                // Calculating the node's center
                 float circleCenterX = x + circle.getRadius();
                 float circleCenterY = y + circle.getRadius();
 
                 text.setPosition(circleCenterX, circleCenterY);
 
+                // Truncate the text if it doesn't fit within the node
                 float maxTextLen = circle.getRadius() * 2.0f - 10.0f;
                 string truncatedTextString = truncateText(text, maxTextLen);
                 text.setString(truncatedTextString);
 
+                // Updating after truncate
                 textRect = text.getLocalBounds();
                 text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
 
                 text.setPosition(circleCenterX, circleCenterY);
 
+                // Drawing the node and the text
                 window.draw(circle);
                 window.draw(text);
 
+                // Calculating the positions of the children
                 int numOfChildren = node->getChildren().size();
                 if (numOfChildren > 0) {
                     float subtreeLen = subTreeLen(node, xOffset);
@@ -127,26 +138,6 @@ class Tree {
 
                         drawTree(window, node->getChildren()[i], childX, childY, xOffset / 1.2f, yOffset, level + 1);
                     }
-                }
-
-                // Check if the mouse is hovering over the circle
-                sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-                if (circle.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                    sf::RectangleShape tooltip(sf::Vector2f(200, 50));
-                    tooltip.setFillColor(sf::Color(255, 255, 255, 200));
-                    tooltip.setOutlineColor(sf::Color::Black);
-                    tooltip.setOutlineThickness(1);
-                    tooltip.setPosition(static_cast<float>(mousePos.x) + 10, static_cast<float>(mousePos.y) - 60);
-
-                    sf::Text tooltipText;
-                    tooltipText.setFont(font);
-                    tooltipText.setString(nodeValueStr);
-                    tooltipText.setCharacterSize(15);
-                    tooltipText.setFillColor(sf::Color::Black);
-                    tooltipText.setPosition(tooltip.getPosition().x + 10, tooltip.getPosition().y + 10);
-
-                    window.draw(tooltip);
-                    window.draw(tooltipText);
                 }
             }
 
@@ -174,19 +165,17 @@ class Tree {
                     this->root = &root;
                 }
                 else{
-                    cout << "Root already exists" << endl;
-//                    throw std::runtime_error("Root already exists");
+                    throw std::runtime_error("Root already exists");
                 }
             }
 
             inline void add_sub_node(Node<T>& root_node, Node<T>& sub_node) { // Adding a sub node
                 // If the parent has less than n children, add the child to the parent
-                if (root_node.children.size() < n){
+                if (root_node.getChildren().size() < n){
                     root_node.add_child(sub_node);
                 }
                 else{
-                    cout << "Root node has already n children" << endl;
-//                    throw std::runtime_error("Parent has already n children");
+                    throw std::runtime_error("Parent has already n children");
                 }
             }
 
@@ -212,7 +201,7 @@ class Tree {
             inline BFSIterator<T> begin() { return BFSIterator<T>(root); }
             inline BFSIterator<T> end() { return BFSIterator<T>(nullptr); }
 
-            inline void showTree() {
+            inline void showTree() { // GUI function
                 sf::RenderWindow window(sf::VideoMode(800, 600), "Tree Visualization");
 
                 while (window.isOpen()) {
@@ -230,6 +219,8 @@ class Tree {
                     window.display();
                 }
             }
+
+            inline Node<T>* getRoot() { return this->root; }
 };
 
 template <typename T>
@@ -264,6 +255,8 @@ class Tree<T, 2> {
                 return truncatedString;
             }
 
+            // Helper function to calculate the max len of a subTree.
+            // This function is used to prevent overlapping of nodes in the GUI.
             float subTreeLen(Node<T>*  node, float xOffset) {
                 if (!node || node->getChildren().empty())
                     return 0.0f;
@@ -274,7 +267,7 @@ class Tree<T, 2> {
                     totalLen += subTreeLen(child, xOffset) + xOffset;
                 }
 
-                totalLen -= (2 * xOffset)  ;
+                totalLen -= (2 * xOffset); // Removing unnecessary offset from last child
 
                 return max(totalLen, xOffset);
             }
@@ -283,18 +276,22 @@ class Tree<T, 2> {
                 if (!node)
                     return;
 
+                // Drawing the node
                 sf::CircleShape circle(30);
                 circle.setFillColor(sf::Color::Blue);
                 circle.setPosition(x, y);
 
+                // Getting the font
                 sf::Font font;
                 if (!font.loadFromFile("ArielFont.ttf")) {
                     cerr << "Failed to load font\n";
                     return;
                 }
 
+                // Formating value
                 std::string nodeValueStr = formatingValue(node->get_value());
 
+                // Creating text
                 sf::Text text;
                 text.setFont(font);
                 text.setString(nodeValueStr);
@@ -304,23 +301,28 @@ class Tree<T, 2> {
                 sf::FloatRect textRect = text.getLocalBounds();
                 text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
 
+                // Calculating the node's center
                 float circleCenterX = x + circle.getRadius();
                 float circleCenterY = y + circle.getRadius();
 
                 text.setPosition(circleCenterX, circleCenterY);
 
+                // Truncate the text if it doesn't fit within the node
                 float maxTextLen = circle.getRadius() * 2.0f - 10.0f;
                 string truncatedTextString = truncateText(text, maxTextLen);
                 text.setString(truncatedTextString);
 
+                // Updating after truncate
                 textRect = text.getLocalBounds();
                 text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
 
                 text.setPosition(circleCenterX, circleCenterY);
 
+                // Drawing the node and the text
                 window.draw(circle);
                 window.draw(text);
 
+                // Calculating the positions of the children
                 int numOfChildren = node->getChildren().size();
                 if (numOfChildren > 0) {
                     float subtreeLen = subTreeLen(node, xOffset);
@@ -338,26 +340,6 @@ class Tree<T, 2> {
 
                         drawTree(window, node->getChildren()[i], childX, childY, xOffset / 1.2f, yOffset, level + 1);
                     }
-                }
-
-                // Check if the mouse is hovering over the circle
-                sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-                if (circle.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                    sf::RectangleShape tooltip(sf::Vector2f(200, 50));
-                    tooltip.setFillColor(sf::Color(255, 255, 255, 200));
-                    tooltip.setOutlineColor(sf::Color::Black);
-                    tooltip.setOutlineThickness(1);
-                    tooltip.setPosition(static_cast<float>(mousePos.x) + 10, static_cast<float>(mousePos.y) - 60);
-
-                    sf::Text tooltipText;
-                    tooltipText.setFont(font);
-                    tooltipText.setString(nodeValueStr);
-                    tooltipText.setCharacterSize(15);
-                    tooltipText.setFillColor(sf::Color::Black);
-                    tooltipText.setPosition(tooltip.getPosition().x + 10, tooltip.getPosition().y + 10);
-
-                    window.draw(tooltip);
-                    window.draw(tooltipText);
                 }
             }
 
@@ -384,8 +366,7 @@ class Tree<T, 2> {
                     this->root = &root;
                 }
                 else{
-                    cout << "Root already exists" << endl;
-                    //                    throw std::runtime_error("Root already exists");
+                    throw std::runtime_error("Root already exists");
                 }
             }
 
@@ -395,8 +376,7 @@ class Tree<T, 2> {
                     root_node.add_child(sub_node);
                 }
                 else{
-                    cout << "Root node has already n children" << endl;
-                    //                    throw std::runtime_error("Parent has already n children");
+                    throw std::runtime_error("Parent has already n children");
                 }
             }
 
@@ -422,7 +402,7 @@ class Tree<T, 2> {
             inline BFSIterator<T> begin(){ return BFSIterator<T>(root); }
             inline BFSIterator<T> end() { return BFSIterator<T>(nullptr); }
 
-            inline void showTree() {
+            inline void showTree() { // GUI function
                 sf::RenderWindow window(sf::VideoMode(800, 600), "Tree Visualization");
 
                 while (window.isOpen()) {
@@ -440,4 +420,6 @@ class Tree<T, 2> {
                     window.display();
                 }
             }
+
+            inline Node<T>* getRoot() { return this->root; }
 };

@@ -21,11 +21,11 @@ template <typename T>
             // Functions
             Node(const T& value) : value(value), parent(nullptr) {} // Constructor
 
-            inline T& get_value() { return this->value; } // Getting the data
+            inline T& get_value() { return this->value; } // Getting the value
 
             inline vector<Node<T>*>& getChildren() { return this->children; } // Getting the children vector
 
-            inline void setData(T& value) { this->value = value; } // Setting the data
+            inline void set_value(const T& value) { this->value = value; } // Setting the value
 
             inline void add_child(Node<T>& child) { this->children.push_back(&child); child.parent = this; } // Adding a child
 

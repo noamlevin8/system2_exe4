@@ -11,7 +11,6 @@ using namespace std;
 
 int main()
 {
-
     // Binary tree
     Node<double> root_node(1.1);
     Tree<double> tree;
@@ -83,6 +82,7 @@ int main()
     n1.clear_children();
     n2.clear_children();
 
+
     // 3-ary tree
     Tree<double,3> three_ary_tree;
     three_ary_tree.add_root(root_node);
@@ -137,7 +137,7 @@ int main()
     for (auto node : three_ary_tree)
     {
         cout << node << " ";
-    } // prints: 1.1 1.2 1.5 1.3 1.6 1.4
+    } // prints: 1.1 1.2 1.3 1.4 1.5 1.6
 
     cout << "\n" << endl;
 
@@ -151,16 +151,17 @@ int main()
 
     three_ary_tree.showTree();
 
+
     // Complex tree
     Node<Complex> root_cmp(Complex(1.1, 1.1));
-    Tree<Complex> cmpTree;
-    cmpTree.add_root(root_cmp);
     Node<Complex> one(Complex(2.2, -2.2));
     Node<Complex> two(Complex(-3.3, 3.3));
     Node<Complex> three(Complex(-4.4, -4.4));
     Node<Complex> four(Complex(5.5, 5.5));
     Node<Complex> five(Complex(6.6, 6.6));
+    Tree<Complex> cmpTree;
 
+    cmpTree.add_root(root_cmp);
     cmpTree.add_sub_node(root_cmp, one);
     cmpTree.add_sub_node(root_cmp, two);
     cmpTree.add_sub_node(one, three);
