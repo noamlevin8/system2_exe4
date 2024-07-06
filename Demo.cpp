@@ -69,6 +69,7 @@ int main()
 //    } // same as BFS: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
 
 //    cout << tree; // Should print the graph using GUI.
+    tree.showTree();
 //
 
     root_node.clear_children();
@@ -98,6 +99,8 @@ int main()
     } // prints: 1.1 1.2 1.5 1.3 1.6 1.4
 
     cout << "\n" << endl;
+
+    three_ary_tree.showTree();
 
     return 0;
 }
