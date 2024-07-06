@@ -33,7 +33,7 @@ class Complex {
 
             // Operators "==" and "<" overload
             inline bool operator==(const Complex& other) const { return normalize() == other.normalize(); }
-            inline bool operator<(const Complex& other) const { return normalize() < other.normalize(); }
+            inline bool operator>(const Complex& other) const { return normalize() > other.normalize(); }
 
             friend ostream& operator<<(ostream& os, const Complex& c); // Operator "<<"
 

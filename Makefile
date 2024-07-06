@@ -11,7 +11,6 @@ TESTSOURCES = Node.hpp Tree.hpp TestCounter.cpp Test.cpp Complex.cpp
 DEMOOBJECTS = $(subst .cpp,.o,$(filter %.cpp,$(DEMOSOURCES)))
 TESTOBJECTS = $(subst .cpp,.o,$(filter %.cpp,$(TESTSOURCES)))
 
-
 all: demo test
 
 demo: $(DEMOOBJECTS)
@@ -33,4 +32,4 @@ valgrind: demo test
 clean:
 	rm -f *.o demo test
 
-.PHONY: all run demo test tidy valgrind clean
+.PHONY: all demo test tidy valgrind clean
